@@ -428,6 +428,10 @@ If you write `SSM` in a section where neither that section nor an earlier sectio
 
 This is especially important for Highlights (independent of Abstract) and the Abstract itself (independent of body). Each of these may need its own first-use definitions.
 
+### Method-name introductions (acronym first)
+
+When the method name comes first and its expansion follows (the "NAME: ..." title pattern), introduce it as a comma apposition woven into the sentence — "This paper proposes SEAL, a self-adaptive energy-aware reinforcement learning framework, in which ..." — never as a long parenthetical ("SEAL (self-adaptive energy-aware reinforcement learning)"). The user finds long parenthetical expansions unprofessional. The standard short definition pattern `Full Term (ABBR)` is unaffected: parentheses there wrap only the short acronym, not running text.
+
 ### Universally known abbreviations
 
 Common domain abbreviations may appear undefined: `CNN`, `RNN`, `ViT`, `LSTM`, `GRU` (CV/ML); `AUC`, `OA`, `AA`, `F1`, `mAP`, `IoU` (metrics); `LiDAR`, `SAR`, `DSM`, `RGB`, `MSI` (remote sensing); `BIM`, `GIS`, `CAD`, `UAV` (engineering). Err on the side of expanding once on first use, especially in Highlights and Abstract.
