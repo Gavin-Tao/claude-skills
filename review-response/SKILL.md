@@ -417,5 +417,29 @@ the reply. Short cosmetic fixes can compress 1–5 into 2–3 sentences, still e
 7. After drafting, do a sync check: for each reply that claims an edit, confirm the corresponding blue edit
    exists in the manuscript and the wording matches the letter.
 
+---
+
+## 6. Blue-collection and artifact-reproduction rules (distilled from later rebuttal rounds)
+
+- **Group all blue edits at the END of each reply.** Write the full explanatory prose first; then one
+  lead-in sentence naming where each edit goes ("in the Introduction, Section 5.6, and the Conclusion");
+  then the blue edits back-to-back, ordered by order of appearance in the manuscript. No prose paragraphs
+  between the blue quotes, and no bold location labels (e.g. `**Introduction.**`) before each quote — the
+  lead-in already names the locations.
+- **Reproduce whole figures/tables, never caption-only.** When a reply argues from a manuscript figure or
+  table, bring the ENTIRE artifact over verbatim — the full `tabular` (every row/column) or the actual
+  `\includegraphics` — rendered as a real float (`[H]`), with its caption. A hand-typed pseudo-caption
+  (`Fig.~8 caption: ...`) reads as an incomplete rebuttal. For figures, set the counter just before the
+  reproduction (`\setcounter{figure}{7}` → prints "Figure 8") so the caption shows the true manuscript
+  number; prose cross-references stay hardcoded as usual.
+- **Repetition is allowed and REQUIRED.** Each per-comment reply must be self-contained: re-paste the same
+  blue table/figure under every comment whose reply uses it, even if it already appears under another
+  comment. Never reduce it to a bare "see Table N" — the reviewer should not have to flip back.
+- **One-word changes: blue the whole sentence.** Even if only a single word changed, blue the entire
+  containing sentence (no `\ldots` fragments) in BOTH the letter and the manuscript, so the blue sets stay
+  identical. An unchanged trailing `\cite{}` may stay outside the blue.
+- **Whole figure/table edits:** enclose the changed float in a colored box/frame in the revised manuscript
+  so the change is visible in the PDF, and keep the letter's reproduction consistent with it.
+
 Related: see the `academic-paper-writing` skill for the manuscript-side prose/claim discipline that the
 blue-marked edits must follow.

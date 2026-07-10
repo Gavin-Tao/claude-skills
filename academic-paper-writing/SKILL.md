@@ -263,6 +263,10 @@ Contributions are the highest-density text in the paper. Every word must be load
 - Bullet 3 (if theoretical): "Theoretical analysis establishes [list of properties]."
 - Bullet last: "Extensive experiments on [benchmarks] demonstrate [claim]. Comprehensive efficiency evaluation further confirms [efficiency property]."
 
+**Sentence-level bullet style.** Inside a bullet body: no "In contrast to existing ..." openers — comparative framing belongs in the Related-Work gap sentence, not in the contribution (Observed: the user struck this opener while otherwise approving the bullet set). No mid-sentence colons — the bold-title colon is the only colon; write two plain declarative sentences instead: "X is proposed to ... . The [mechanism] ..., so that ...". No value adjectives (*flexible*, *robust*, *seamless*) — when a bullet feels weak, strengthen it by sharpening the concrete mechanism contrast (e.g., "an operating budget ... instead of a reward weight whose behavioural effect must be re-tuned for every task"), never by adding an adjective.
+
+**Claim–evidence audit.** Separate *constructive* claims (properties true by construction of the method, e.g., "no budget needs to be specified or calibrated in advance") from *comparative* claims (e.g., "prevents premature over-constraint", "outperforms a fixed threshold"). A comparative claim requires a matching experiment or ablation in the evaluation section; if that ablation does not exist, either run it or demote the claim to its constructive core before the draft leaves the house. Failure-mode statements about prior methods are Introduction material supported by citations — never phrase them as in-house experimental findings when no in-house comparison exists.
+
 **Audit checklist before submitting**:
 - [ ] Each bullet makes exactly one substantive claim.
 - [ ] No bullet ends with "bridging the gap", "shedding light on", "paving the way", or similar filler.
@@ -270,6 +274,8 @@ Contributions are the highest-density text in the paper. Every word must be load
 - [ ] No bullet duplicates a claim made in another bullet.
 - [ ] Each theoretical claim corresponds to a `\begin{proposition}` (not `\begin{remark}`) in the body.
 - [ ] Each "first-claim" is hedged with "to the best of our knowledge".
+- [ ] No bullet opens with "In contrast to ..."; no mid-sentence colon inside a bullet body.
+- [ ] Every comparative claim maps to an experiment or ablation that actually exists; construction-level claims are phrased as such.
 
 ### Related Work (typically 4 subsections; each ends with a gap/limitation)
 
@@ -370,6 +376,7 @@ Before writing or committing any quantitative claim, verify:
   - **No result claims in captions.** Sentences like `MFM (red) defines the Pareto frontier of every panel.` are editorial conclusions and belong in the body. The caption should describe *what is shown*, not what to conclude from it.
   - **No re-definition of abbreviations that are already defined in the body.** Once OA / AA / Cohen's $\kappa$ etc. are defined in the Evaluation Setup, downstream tables and figures use the abbreviations directly. Don't re-spell `overall accuracy (OA)` in every table caption.
   - **No back-pointers that are already implicit.** `Class definitions are listed in Table~\ref{...}` at the tail of a dataset-figure caption is filler — the reader will find it. Drop unless the pointer is non-obvious (e.g., a definition is two sections away).
+  - **Explanations live in the body, not the caption.** Column/symbol definitions, methodology notes ("scores fixed, only $q$ varied"), data-sourcing notes, and per-panel breakdowns belong in the body paragraph that first references the float; the caption only names the artifact. When shortening an existing caption, move the removed explanation into that body paragraph — and during a revision round, mirror both changes in any response-letter reproduction so the blue sets stay identical.
   - **Prefer "Overview" over "Overall architecture"** for the framework figure (matches the reference papers; shorter, less generic).
   - **Use "Grouped bar chart of …" / "Heat-map of …" / "Radar of …"** as the noun phrase head, not the truncated "Overall accuracy bar across …" which sounds incomplete.
   - **For column-meaning notes in long efficiency tables**, list inline as `\``Params''`: ...; ``FLOPs''`: ...; ``Size''`: ...` rather than as full sentences (`\``Params'' is the total parameter count, \``FLOPs'' is per single-sample forward pass, ...`). Reads as a glossary, takes a third of the space.
