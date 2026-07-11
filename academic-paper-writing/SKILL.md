@@ -218,6 +218,20 @@ The entire "height" is in promoting *energy* from "a reward term" to "a fundamen
 
 **Diagnostic for "說不上來 / can't say why it's off":** the un-academic feeling is almost always *register* (slogan / mechanism / trendy word / property-list), not *content*. The underlying idea is usually right; restate it in the sober status-elevation register of the reference paper rather than searching for a new abstraction.
 
+### The central question (Introduction closer)
+
+Some authors like to end the Introduction gap discussion with a single **italic (`\emph{...}`) "central question"** that packages the paper's thesis, immediately answered by the "this paper proposes" paragraph. Pattern: a lead-in (`Together, these gaps raise the central question we address:`) then one `\emph{}` question. Construction that works (schematically: *Can [central quantity] be transformed from [the literature's weak treatment] into [your first-class treatment], whose [property A], [property B], and [property C], all without sacrificing [the core task(s)]?*):
+- **Transformation arc**, not static description: `transformed from [a secondary reward term] into [an explicit constraint]` beats `governed by [an explicit constraint]`. The `from X into Y` folds the gap and the solution direction into one clause.
+- **Parallel triplet** of the mechanism's properties as matched participles (`whose budget is generated …, tightened …, and never calibrated in advance`). Keep them grammatically parallel — all past-participle passive; a non-parallel member (`no need to be calibrated`) breaks the rhythm, so prefer `never calibrated`.
+- **Weighted close**: end on the payoff at the sentence's heaviest position (`all without sacrificing [task A] or [task B]?` — the `all without` echoes the reference register). Cover the *whole* task, not half of it: if the system does two things (e.g. tracking *and* obstacle avoidance), name both. Under negation use `or` (`without sacrificing A or B` = neither), never `and/or`.
+- Capitalize the first word after the colon (`Can …`).
+
+**Accuracy discipline for the question (the part reviewers scrutinize):** every clause's driver must be literally correct.
+- **Attribute each clause to its true driver.** If a quantity's *value* is derived from one signal but its *tightening* is gated by another, don't collapse both into one wrong source noun — attribute each to its real driver, or use a neutral umbrella true of both (e.g. `from the system's own recent behaviour`). Also avoid a source noun that duplicates a later clause (saying a budget follows "competence" *and* is "tightened as competence grows" is circular).
+- **Avoid over-precise and vague nouns.** A source noun that restates the output (`energy budget generated from recent energy consumption`) reads circular; a placeholder (`status`, `performance`) reads vague. Pick the one true, non-redundant noun.
+- **Watch absolute phrasings.** `without any budget specified in advance` is false-sounding if *some* dimensionless schedule is still set — scope it to what is actually eliminated (`without calibrating an absolute budget in advance`).
+- **Don't smuggle in claims the paper can't back** (physical units when the quantity is normalized; cross-domain generality from a single-domain study).
+
 ### Contributions writing rules
 
 Contributions are the highest-density text in the paper. Every word must be load-bearing. The user enforces strict discipline.
@@ -331,6 +345,20 @@ Final subsection (your-paradigm-in-your-field) ends with the **specific gap** th
 - Qualitative results (classification maps, attention maps, generation samples) belong in RQ1 (the accuracy/quality RQ).
 - For accuracy RQ: per-class / per-category tables + radar / heatmap / bar visualizations across baselines.
 - For efficiency RQ: Pareto plot + efficiency table (your method vs. primary baseline, side by side).
+
+**Section-intro paragraph (between `\section` and the first `\subsection`).** Every top-level section opens with one short orienting paragraph before its first subsection — never let a `\subsection` butt directly against the `\section` heading. For Experiments it states the scenarios and previews the RQ arc in one sentence: "This section ... organised around four research questions that examine, in turn, [RQ1 topic], [RQ2 topic], [RQ3 topic], and [RQ4 topic]." (matches the SST-BiMambaAD register). Do the same for Methodology and Implementation.
+
+**Evaluation Setup — metrics as equations.** Where a metric has a formula, write it as a *separate numbered display equation*, not inline prose — RMSE, cumulative/total energy, energy-per-metre each get their own `\begin{equation}`. This looks rigorous and lets the text refer to `\eqref{}`. Two discipline points:
+- **Distinguish the evaluation metric from the training objective.** If training optimizes a *discounted* cost $J_c$ but you report an *undiscounted* episode total $E_{\text{tot}}=\sum_t c_t$, say so explicitly ("Unlike the discounted cost $J_c$ optimized during training, $E_{\text{tot}}$ is the undiscounted episode total"). Readers conflate them otherwise.
+- **Don't invent units the data doesn't carry.** If the cost is normalized/dimensionless, report energy-per-metre as a ratio, not "in joules/watts".
+
+**Baselines — concise `\item` list, neutral phrasing, `(Ours)` row.** Prefer baselines as an `itemize`, one line each (`\item \textbf{[Method]} [one-clause description of what it does].`). Rules:
+- **No belittling verbs.** `ignoring [X]`, `folding [X] into the reward`, `naively`, `merely` make the baseline look *deliberately* crippled (user reaction: "显得故意让他差" — looks like you rigged it to lose). State neutrally what each method *does*, e.g. `\item \textbf{[Baseline]} adds a fixed-weight [X] penalty to the reward.`
+- **No inline symbol formulas in the list.** Keep the objective math in the Formulation section and refer to it (`as formalized in Section~\ref{sec:formulation}`); the baseline list is prose descriptions, not equations.
+- **Include the proposed method as the last item with `(Ours)`** (`\item \textbf{[Method] (Ours)} [one-clause description].`) so the contrast set is complete on the page.
+- **State the shared protocol once.** The "same architecture, same schedule, same per-episode conditions, differing only in [the one axis under study]" statement belongs in the Training/Implementation subsection (where the protocol is defined), *not* duplicated in the Baselines list. From the list, one clause ("all sharing the same architecture and training schema and differing only in …") plus a pointer is enough.
+
+**Seeds — don't commit to a count you don't want scrutinized.** If evaluation used a handful of seeds and you are *not* making a training-robustness claim, write "across seeds" / "over random seeds" and do not print a specific number (a stated "5 seeds" invites a robustness question the paper isn't answering). State a count only when the count itself is the evidence (e.g. a variance/CI claim).
 
 ### Conclusion (3 paragraphs, ~30 lines total)
 
