@@ -47,6 +47,7 @@ A consolidated style guide derived from real iterative feedback on journal manus
 | Paper-internal labels in titles / captions (`(Scenario~A)`, `(Config~3)`) | Ambiguous without reading the section that defines them | Describe what it means inline ("with the backbone parameters held fixed throughout"). |
 | `interpretable`, `coherent`, `minimal`, `load-bearing` in a *claim* (vs. a defined term) | Value judgements that a reviewer can dispute | Mechanism word (`L1-pruned`, `active-edge`, `threshold-style`) or measured observation (`observed on all three datasets`). |
 | Rhetorical subsection titles (`Why X?`, `How does Y work?`) | Reads as a blog post, not a paper | Declarative noun phrase (`Rationale for the KAN Surrogate`, `Two-Layer KAN Formulation`). |
+| `\citet{}` author-name citations in prose ("the design of Rong et al. [19]") | The user dislikes author names in running text | Rephrase so the sentence carries the technical content and cite numerically with `\citep{}` ("disturbance observers for performance-guaranteed tracking [19]"). Author-name labels in a comparison table's method column remain acceptable. |
 
 ---
 
