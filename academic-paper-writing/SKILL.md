@@ -1130,6 +1130,9 @@ conventions, not the paper's.
 - **Model them on the user's previous submission to the same journal**, not on a
   generic template. Match its paragraph count, its paragraph lengths (± 10 %),
   its register, and its section order.
+- **Cover letter penultimate paragraph: fixed wording, and never mention code.** The declaration paragraph before the closing line is exactly this, and nothing is added to it:
+  > The manuscript has been approved for submission by all co-authors and has not been submitted, published, or considered for publication elsewhere in English or any other language. We declare that there are no known competing financial interests or personal relationships that could have influenced the work reported in this paper.
+  The user replaced a version that ended with "The code supporting the study is available in a public repository, cited in the manuscript" (MarineMamba, September 2026) and asked that code availability never appear in a cover letter; the repository sentence belongs in the abstract only. The two sentences above cover originality, exclusivity in any language, and competing interests, which is what the submission system asks for, so do not paraphrase them to match a previous letter.
 - **Cover letter: no DOIs, no citation apparatus.** The user's rule
   (cover letter 不用引用doi吧). Name works in prose if needed; do not build a
   bibliography inside a letter.
