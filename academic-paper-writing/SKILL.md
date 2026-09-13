@@ -1471,3 +1471,57 @@ The title went through six rounds. What settled it:
 - Check every citing sentence against the record: three placements were wrong in a bibliography whose entries were all real (a terrain-mapping survey cited for a trajectory claim; a path-planning paper cited as "planning and control"; Isaac Gym cited as if the platform were built on it).
 - Remove entries the text never cites.
 - Report a per-entry table (source checked, field result, citation-context result) and a summary count; the user asks for the table by name.
+
+---
+
+## Corrections from the NAIAD round (Neurocomputing, September 2026)
+
+Fourth paper in a readout family (CLARO, memory horizons, ROVER, NAIAD) built on one controller. Every item below is a correction the user gave on a live draft or a decision they made when asked. Apply by default on the next paper.
+
+### Front matter
+
+- **Abstract cap is 250 words and the repository sentence does not count.** Close with `A repository is hosted at \url{...}.` after the word count is checked on the body alone. Mention the controller class (world model) exactly once.
+- **Absolute phrasing about what a method never does was flagged twice** (`so the demand is never formed` 会不会太绝对或者不学术). Write what the controller emits and what therefore has no separate object, not what never happens.
+- **A measured headline in the abstract is fine when it is the audit's own number** (`Of the commanded thrust energy, 11.88\% produces no motion.` was kept after the user asked whether to keep it). A mechanism qualifier the reader cannot check (`rather than by the tracking error it corrects`) was cut.
+- **`already` is filler.** Strike every occurrence; the user flagged it as an AI tell on sight.
+- **`What`-openers are banned in sentences, not only in headings** (`What an end-to-end controller leaves implicit...` 不用 what 开头). Same for a sentence that exists only to exclude a case nobody raised (`A controller that never forms a generalised force falls outside the formulation entirely.` 不用加).
+- **Contribution order: position first, components second, audit last.** The first bullet states where the framework sits (the object it creates that the controller class lacks), the middle bullets name the mechanisms, the last states the empirical audit and what it reports. No numbers, no `because`, no `first`.
+- **Graphical abstract is optional and the user may drop it late.** When told 我不会用 graphic abstract, remove the figure, its `\includegraphics`, every sentence that cites it and the Introduction paragraph written around it; do not leave a Figure 1 reference dangling.
+
+### Related Work and the comparison table
+
+- **A sibling paper's subsection skeleton may not be reused.** The siblings run domain → world-model control → post-hoc explanation → KAN surrogates. NAIAD was reorganised on a different axis (the resource, the cost, the coordinates of a readout) after the user said the sections 不能跟之前的姐妹稿太类似. Before writing, list the siblings' subsection titles and choose an axis none of them uses.
+- **A subsection with almost no citations is a structural smell** (2.1 基本上没有什么文献). Either cite it properly with verified primary sources or fold it into the neighbour.
+- **The last Related Work paragraph points at the comparison table** and says what the table separates. The table must differ from the siblings' tables in its columns, not only its rows; the user asked for 花里胡哨 columns but 也不用硬加. Legend: ✓ provided, ∘ provided only by construction or in restricted form, × not provided, defined in the caption.
+- **A specific mechanism is not cited to a survey** (怎么写一个具体的东西引用了综述论文). Cite the primary paper for the mechanism, and cite the survey only for the sentence that states the field-level fact the survey documents.
+
+### Methodology
+
+- **No section cross-references and no conclusions inside Methods.** `The consequence is that structure...` (a forward reference to a result) was struck; a Figure 1 citation inside 3.1 was struck. Methods states definitions, equations, propositions and proofs; what they imply for the results is said in Experiments.
+- **花里胡哨 means numbered structure, not more words.** The accepted expansion added the vehicle model, the generalised force, the actuator response, the recurrent state and actor, the demand projection, the null-space split, the evidence map, the averages and integrals, the additive readout and edge form, the loss, the counterfactual command, the minimum-norm closed form, the residual and the energy identity, each as a numbered equation, with six propositions and a remark. The user then said 现在的还可以我没有觉得废话很多.
+- **Every proposition must be provable from what the section states.** Corrections made: a non-contamination claim that the laws are invariant to the actuator map was narrowed to the demand alone; an idle-subspace proof that skipped the roll and pitch rows was completed; `surjective` became `non-trivial kernel`; `strictly causal` became `causal` because the evidence includes the previous command. Read each proposition asking what a referee would ask for.
+- **Shared theory is cited, not re-proved.** The exactness of the additive readout was established in a sibling; state it as a proposition attributed to that paper (`established in [CLARO, Horizons]`) with no proof, and prove only what is new (the energy identity, the closed-form counterfactual). The user asked for this explicitly to avoid 自我抄袭怀疑.
+- **One symbol, one meaning, and unify after every expansion.** Collisions fixed in this round: vehicle-model matrices took the subscript `\mathrm{v}`; the EMA became `\mu_t`; the edge-fit agreement became `\zeta`; the spline basis became `N_{k,\kappa}`; the target demand became `\bar{u}_t` against the executed `u_t`; `e^{x}` became `\exp(x)`; the recurrent cell became `T_{\mathrm{rec}}`; the evidence map became `\Xi`.
+- **Verify the objective before claiming what it does not penalise.** The environment reward carried effort and smoothness terms; the safe claim was `no term isolates the cancelling share`, never `nothing in the objective penalises effort`. Read the reward code before writing the sentence.
+
+### Implementation, Experiments and Conclusion
+
+- **Implementation stays a separate section** with a platform-parameter table, a settings table and one algorithm block; its first subsection must not read like the siblings' (rewrite the environment description from the thrust chain, not from the simulator).
+- **Three research questions, each answerable by a table or figure that survives.** A fourth RQ was removed when its only figure was withdrawn, and its surviving traces were folded into RQ1. A question clause that promised more than the audit shows (`and do the recovered terms account for the demand without residue?`) was cut.
+- **When a figure contradicts the text, withdraw the figure**, do not explain the discrepancy in prose. When the user supplies a redrawn figure set, replace the whole set, then re-read every number the text takes from an updated figure and update it; the basis vectors printed in a figure must equal the equation.
+- **Conclusion is three paragraphs**; the last is one flowing future-work sentence naming the concrete next platform (`a complete autonomous underwater vehicle at sea`).
+
+### Floats and captions
+
+- **双栏 means the figure spans both columns (`figure*`); 单栏 means one column.** The user names which figures span; do not decide it from taste. They may later flip one on Overleaf; keep their choice on the next rebase.
+- **No figure after the references when it can be avoided.** `\clearpage` before `\printcredits` (cas-dc) flushes the appendix galleries ahead of the back matter; the two extra pages were accepted. State the page cost when reporting.
+- **Captions are 20 to 30 words naming what is shown**, with panel letters when the figure has panels, without evaluative words, and without repeating the body.
+- **Look at the rendered equations, not only the log.** An initial condition set with `\qquad` on the same line pushed the equation number onto its own line in a narrow column; the fix was `aligned` with the recursion on one line and the initial condition on the next under one number.
+
+### Tooling learned this round
+
+- **The Bash tool mangles backslashes in heredocs and in sed replacement strings.** `\\` arrived as `\`. Write every LaTeX-editing Python script with the Write tool, match with exact strings or whitespace-flexible regex, and `assert count == 1` before replacing.
+- **`git checkout -- main.pdf` restores a stale PDF.** Rebuild before measuring pages, float positions or equation layout. Render pages with PyMuPDF at 130 to 150 dpi and read the image; set `PYTHONIOENCODING=utf-8` on Windows before printing extracted text.
+- **Overleaf commits land between pushes.** On rejection: restore `main.pdf`, `pull --rebase`, push with HTTP/1.1, then diff the Overleaf commit and report what it changed before building on it.
+- **GPT edits arriving on Overleaf are reviewed, not accepted or reverted wholesale.** Pull, diff, keep the citation-precision gains, revert what breaks a rule here (section refs in the Introduction, surveys cited for mechanisms), and tell the user which side won each hunk.
+- **Unused figures are moved to an `unused_in_paper/` folder**, not deleted, when the user asks to keep only the figures the paper uses.
