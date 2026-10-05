@@ -281,8 +281,7 @@ the reply. Short cosmetic fixes can compress 1–5 into 2–3 sentences, still e
 - **Figure/table edits get a colored mark.** When an edit is a whole figure or table (where inline
   `\textcolor{blue}{}` on prose does not show the change), make it unmistakably blue in the revised PDF:
   put `{\color{blue}` *inside* the float (after `\centering`), wrap the body, and give the caption its own
-  `\caption{\textcolor{blue}{...}}` (a surrounding colour group does not reliably colour a caption). Show
-  the same artifact, blue, in the letter.
+  `\caption{\textcolor{blue}{...}}` (a surrounding colour group does not reliably colour a caption). Show the same artifact, blue, in the letter. For a **figure** the blue caption is the whole mark: do not box or frame the image (see §7).
 - **Reproduce the FULL artifact in the letter, never a caption stub — and show EVERY regenerated figure
   when figure quality is attacked.** When a blue span involves a table/figure, bring the ENTIRE artifact
   over verbatim (the whole `tabular` / the `\includegraphics` image) in the same float format as the
@@ -438,8 +437,113 @@ the reply. Short cosmetic fixes can compress 1–5 into 2–3 sentences, still e
 - **One-word changes: blue the whole sentence.** Even if only a single word changed, blue the entire
   containing sentence (no `\ldots` fragments) in BOTH the letter and the manuscript, so the blue sets stay
   identical. An unchanged trailing `\cite{}` may stay outside the blue.
-- **Whole figure/table edits:** enclose the changed float in a colored box/frame in the revised manuscript
-  so the change is visible in the PDF, and keep the letter's reproduction consistent with it.
+- **Whole figure/table edits:** a changed **table** has its body and its caption in blue. A changed **figure** is
+  marked by its caption alone, `\caption{\textcolor{blue}{...}}`, in the manuscript and in the letter's reproduction.
+  Do not draw a blue box or frame around the image; the user removed one on sight (你不需要把两张图用蓝色框出来，
+  只需要caption标蓝即可).
 
 Related: see the `academic-paper-writing` skill for the manuscript-side prose/claim discipline that the
 blue-marked edits must follow.
+
+---
+
+## 7. Corrections from the ROVER round (Ocean Engineering, October 2026)
+
+A minor revision: two reviewers, ten short comments (definitions, one requested table, wording, typos), every
+questionnaire box ticked positive. Each item below is a correction the user gave or a decision they made when asked.
+Apply them by default.
+
+### Workflow the user asked for
+
+- **Skeleton first, plan second, prose third.** The opening request was to create the letter from the previous
+  template, paste the comments in, leave every response empty, and explain the approach (response和修改先不写，
+  先大概告诉我你的思路). Copy `reviewresponse.cls` and the preamble of the most recent letter, paste each comment
+  verbatim, use `\begin{revresponse}[]` (the empty bracket suppresses the class default "Thank you for the comment."),
+  compile, then give one or two lines of plan per comment and the facts only the author can supply. Leave the
+  journal's Yes/No questionnaire grid out of the letter.
+- **Read the numbering from `main.aux` before planning.** Reviewers cite equation, figure and table numbers. Map
+  each to its label first; the plan is wrong if "Eq. (19)" is taken for the wrong equation.
+- **Blue goes into the letter first.** The user wanted the blue text drafted in the letter only (正文里先不用修改，
+  蓝色先只放到回复信里) and applied to the manuscript once the wording was settled. Apply it with a script of
+  exact single-match replacements, rebuild, and then compare the two blue sets with a script, sentence by sentence.
+- **Plan the numbering of new equations and tables so that nothing a reviewer cited moves.** Put new numbered items
+  after the cited ones where the logic allows, write the planned numbers in a comment at the top of the letter, and
+  check them against `main.aux` after the manuscript is edited.
+- **A standing "push after every edit" is a standing instruction.** Once the user says 每次改完后自动push, commit
+  and push the source after each completed change without being asked again: fetch, check ahead/behind, never force.
+
+### How much blue
+
+- **Change as little as possible, with consistency as the hard constraint** (尽量少改动，但是前提是确保数据一致
+  正确不要互相矛盾). The target is the smallest set of changed sentences that leaves every number and statement in
+  the paper consistent. The user asked 为什么要写这么长的蓝色部分 twice; both times the answer was to cut.
+- **Blue only the sentences that changed.** When a paragraph is revised, its unchanged sentences stay black in the
+  manuscript and are not quoted in the letter. Quoting the "revised paragraph" whole doubles the blue for nothing.
+- **Say a fact once.** A weight shown in a new table and used in the next paragraph does not need a third statement
+  in the paragraph that introduces the table. Verbal restatements of an equation ("so $\rho$ is the root-mean-square
+  deviation of ...") go as well.
+- **Answer a definition comment with exactly the items asked.** If the reviewer asks which partition and which
+  quantity, the inserted sentence states those two facts. The explicit negative ("the other candidate does not
+  enter") belongs in the black reply, where the reviewer reads it, and stays out of the manuscript.
+- **The reply to the editor is generic.** Thanks, "all N comments are addressed, changes are marked in blue and
+  reproduced in the reply that prompted them", closing line. A paragraph recording which reported numbers changed
+  was struck (这里不用具体写出来吧); the per-comment replies carry that.
+- **A term called slightly misleading is defined, not purged.** Replacing `deployed` everywhere produced
+  twenty-five blue sentences for the mildest comment of the round. Defining the term once, stating the evaluation
+  setting where results are summarised, and rewording only the instances that made the claim (`in service`) came to
+  eight. The reply says the wording was made precise; it does not concede that the word was wrong, so the manuscript
+  may keep it.
+- **"How were the hyperparameters selected" without new experiments.** Tie each setting to the quantity it
+  controls, using numbers the paper already reports (sampling error against the residual it is compared with; grid
+  intervals against the clipped input range). Do not invent a selection procedure, and drop the rationale for any
+  setting you cannot ground rather than writing a plausible one.
+
+### When answering a comment exposes an inconsistency
+
+- **Test the requested table or definition against the paper before writing the reply.** Listing the engineered
+  reward with its weights showed that one term counted as "matching the specification" carried a weight of zero, so
+  a headline percentage in the abstract, highlights and conclusion could not stand. Tell the user at once, with the
+  arithmetic, and get the decision before drafting.
+- **Prefer the restatement that keeps the existing figures valid.** A three-way split (terms the specification
+  rewards, the zero-weight term, quantities it never names) changed five sentences and left two figures and a
+  paragraph untouched; moving the zero-weight term into the "unnamed" group would have forced both figures to be
+  redrawn. Give both numbers in one sentence when a later sentence says "the remaining X per cent", so the parts
+  visibly add to one hundred.
+- **Keep a zero-weight term in the equation and the table when the paper's own figures already show it.** Leaving it
+  out contradicts those figures and reads as an omission against public code.
+- **Stating a partition, a normalisation or a definition makes neighbouring sentences checkable.** Saying that
+  amplitudes are computed on the training episodes contradicted "all quantities are computed on the held-out
+  episodes" two sections later and "on held-out operation" in the abstract. Sweep for every sentence the new
+  definition now falsifies.
+- **Do not add a number that lets a reader derive a mismatch.** Giving the maximum episode length would have let a
+  reader divide transitions by episodes and contradict another sentence. Define the quantity by its normalisation
+  without the value, or correct the other sentence first.
+- **Check every new symbol against the whole manuscript.** A scaling rule written with $s_i$ collided with the
+  spline scale $s_i$ of an earlier equation; the fix was to write the expression without a new symbol.
+- **After the blue is applied, have a fresh reader audit the whole manuscript for internal consistency** against
+  the data exports. Fix what the revision caused or made visible, and give the user a short list of the
+  long-standing items with a recommendation each; those are the author's call.
+- **An inaccurate clause the reviewers did not raise can simply be deleted.** With the user's approval it was
+  removed without blue and without a line in the letter, because marking the remaining half-sentence would have
+  pointed the reviewers at it.
+
+### Figures, tables and references
+
+- **A changed figure is marked by a blue caption only**, in the manuscript and in the letter; no frame.
+- **A label-only repair of a figure is done on the PDF, not by replotting.** Remove the label text with a PyMuPDF
+  redaction that leaves line art alone, and set it again with the same font file, size, baseline and centre. Then
+  prove it: page size unchanged, and a pixel comparison of old against new in which every changed pixel lies inside
+  the label area. This satisfies "same style" exactly, which a re-plot cannot promise.
+- **Do not write "regenerated" in the letter before the files are replaced.** While a figure fix is still owed, the
+  letter that reproduces the figure shows the old image.
+- **Corrections to the bibliography are not marked in blue** (如果修改的话不用标蓝参考文献). Edit `refs.bib`
+  directly and report each change in the reply to the user.
+
+### Draft marks and questions
+
+- **Before marking a value red as unconfirmed, look in the code and the configuration.** The user's response to two
+  red values was 代码里没有吗. A weight read from the task configuration, agreeing across the local copies and with
+  sibling values the paper's own figure reproduces, is confirmed; mark red only what has no source at all.
+- **A question about a passage asks for a judgement.** After a clause was deleted in answer to 这里要写吗, the user
+  said 我只是询问你的意见，你要自己判断. Decide on the merits, say which way and why, including "keep it", and
+  act on that judgement.

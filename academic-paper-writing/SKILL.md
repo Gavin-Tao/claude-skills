@@ -1525,3 +1525,58 @@ Fourth paper in a readout family (CLARO, memory horizons, ROVER, NAIAD) built on
 - **Overleaf commits land between pushes.** On rejection: restore `main.pdf`, `pull --rebase`, push with HTTP/1.1, then diff the Overleaf commit and report what it changed before building on it.
 - **GPT edits arriving on Overleaf are reviewed, not accepted or reverted wholesale.** Pull, diff, keep the citation-precision gains, revert what breaks a rule here (section refs in the Introduction, surveys cited for mechanisms), and tell the user which side won each hunk.
 - **Unused figures are moved to an `unused_in_paper/` folder**, not deleted, when the user asks to keep only the figures the paper uses.
+
+---
+
+## Corrections from the ROVER revision round (Ocean Engineering, October 2026)
+
+A minor-revision round. The letter-side rules are in the `review-response` skill
+(its §7). The items here concern the manuscript: sentences that were accurate enough to pass review and became
+checkable, and wrong, once a reviewer asked for a definition or a table.
+
+### Statements a definition makes checkable
+
+- **Say which quantities are computed on which partition.** "All quantities are computed on the held-out episodes"
+  was false for the amplitudes and shares, which the method computes on the training episodes. Write one sentence
+  that assigns each family of quantities to its partition, and keep "held-out" out of any sentence that reports a
+  training-partition number.
+- **A sign claim must hold for every row it covers.** "Every leading term has a negative slope, so the objective
+  declines as each quantity grows" was contradicted by clauses whose condition is "below a threshold" and by closed
+  forms that peak inside their range. What the data supports is that every fitted hinge has a negative rate, so the
+  objective declines as each quantity moves further past its threshold.
+- **Name which model returned a number.** A ledger said to close on "the value the deployed model assigned" in fact
+  closed on the surrogate's own output. Wherever a table row or a sentence says "model prediction", say whose.
+- **State whether reported terms are centred.** Closed forms and plotted terms were centred on their training mean;
+  a per-state ledger listed the raw terms with the offsets in the bias. Evaluating a printed form at the ledger's
+  own input then disagrees with the ledger. Say that the forms describe centred terms, and export the ledger centred
+  too when a uniqueness result in the paper rests on centring.
+- **Match a precision phrase to the measured error.** A maximum error of $1.2\times10^{-7}$ is "to within
+  $1.2\times10^{-7}$", which is weaker than "to seven decimal places".
+- **Check a claim about the data against the counts already printed.** "No episode terminates" sat beside episode
+  and transition counts whose ratio was not an integer.
+- **Read the code before describing a specification.** For a reward table, take the functional form from the task
+  code and the weights from the task configuration, note the frame of each argument (a rate about the vertical axis
+  is a combination of the body rates and the gravity direction), and describe each term as written: a bounded bonus
+  that decays with effort is a different thing from a subtracted cost.
+- **An explanatory clause can be falsified by the sentence added after it.** "Carries no background distribution"
+  stood immediately before a new sentence saying the expectation is taken over the training transitions.
+
+### Figures
+
+- **`\%` in a matplotlib label prints the backslash** when `usetex` is off. Sweep every figure with
+  `pdftotext fig.pdf - | grep -F '\'` before submission.
+- **Keep the script of every figure you draw yourself next to the data it reads.** Two derived figures could not be
+  regenerated on request because their script had lived in a temporary folder; the user asked for their original
+  names and there were none. A file name such as `R2b_...` (a redraw of the exported `R2_...`) should be recorded in
+  the figure inventory with its source.
+- **In-image formulas must use the symbols of the table that states them.** A figure labelling its bars with
+  $\lambda$, $\tau$ and $s$ sat beside a new table that used other symbols for the same terms.
+- **A figure that groups two quantities in one bar cannot support a sentence that quotes them separately.**
+
+### Process
+
+- **A minimal revision still gets a whole-document consistency read**, by a reader who has not seen the edits and
+  who has the data exports. On a twenty-page manuscript it found one contradiction the revision had created, one it
+  had made visible, and about twenty long-standing loose statements.
+- **A question about a passage is a request for a judgement**, not an instruction to cut it (我只是询问你的意见，
+  你要自己判断). Give the verdict and the reason, and keep the passage when that is the verdict.
