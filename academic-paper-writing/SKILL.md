@@ -1550,8 +1550,8 @@ checkable, and wrong, once a reviewer asked for a definition or a table.
   a per-state ledger listed the raw terms with the offsets in the bias. Evaluating a printed form at the ledger's
   own input then disagrees with the ledger. Say that the forms describe centred terms, and export the ledger centred
   too when a uniqueness result in the paper rests on centring.
-- **Match a precision phrase to the measured error.** A maximum error of $1.2\times10^{-7}$ is "to within
-  $1.2\times10^{-7}$", which is weaker than "to seven decimal places".
+- **Match a precision phrase to the measured error.** A maximum error of 1.2e-7 is "to within
+  1.2e-7", which is weaker than "to seven decimal places".
 - **Check a claim about the data against the counts already printed.** "No episode terminates" sat beside episode
   and transition counts whose ratio was not an integer.
 - **Read the code before describing a specification.** For a reward table, take the functional form from the task
