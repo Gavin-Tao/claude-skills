@@ -207,7 +207,7 @@ the reply. Short cosmetic fixes can compress 1–5 into 2–3 sentences, still e
 | **"Add an experiment / table"** (efficiency comparison, parameter breakdown, ablation, sensitivity, statistical variance over runs) | **Do it.** Add a new Section + a real table, plus 1–2 paragraphs of interpretation. Recurring framing: *"the gains are not from a larger model / more FLOPs, but from the proposed mechanism."* Flag that numbers must come from real runs. |
 | **"Comparison is unfair"** (only swap the module, keep the rest identical) | Emphasize a **controlled comparison**: same encoders, same training protocol, same hyperparameters/epochs, only the target module varies; attach a parameter/resource table showing comparable scale. |
 | **"Just a combination of existing parts / 'first' is overstated"** | Do the one harmless concrete thing (soften or **remove** "first"), then stop dwelling on the weakness. **Do NOT echo or concede the novelty criticism** (no "we acknowledge the components are established / it is not fundamentally new / a mere assembly"); restating it foregrounds it. Instead pivot hard to the *substance*: the purpose-built mechanisms, how the parts are co-designed to solve the problem, the measured gains, and what the framework delivers that prior methods do not (positive differentiation grounded in your comparison table). Push strengths at length; name the alleged weakness as little as possible. |
-| **"Need real-world / hardware / streaming validation"** | **Scope defense + future work.** Honestly state it is beyond the current scope (resource/hardware constraints), defend the value of the controlled/simulation/benchmark study, then add a blue future-work sentence in the Conclusion. |
+| **"Need real-world / hardware / streaming validation"**, or more seeds, proportions, datasets or baselines than exist | **Protocol + future work.** State positively what the evaluation covers (scenes, splits, protocol), answer from the evidence that exists (e.g. a five-seed table), defend the value of the controlled study, then add a blue future-work sentence in the Conclusion. Never write that an experiment was not done, not run, or beyond the resources (不要说自己没做实验之类的, see §8). |
 | **"Language too strong / term misused"** (`principled`, `first framework`, `deployment-oriented`, "stability analysis" when there is none) | Concede and **down-tone**: replace with measured wording (e.g., "empirical robustness", "training stability", "competitive/efficient"). Distinguish empirical from formal/theoretical claims. Sweep all of Abstract/Intro/Conclusion for the same word. |
 | **"Theory rests on strong assumptions / propositions are trivial"** | Acknowledge the assumptions are idealized; argue they define the regime / give intuition; where possible, connect each result to a concrete design choice; soften any over-claimed theorem language; offer to move marginal results to a remark. |
 | **Defensible design you want to keep** (e.g., "merge the contributions", "use a different module") | Validate fully, explain why the current choice is retained (consistency with RQ structure / scope), and **promise to adopt the suggestion in future work** — decline gracefully, never bluntly. Usually has **no blue edit**: it justifies and ends on a brief gratitude. |
@@ -547,3 +547,130 @@ Apply them by default.
 - **A question about a passage asks for a judgement.** After a clause was deleted in answer to 这里要写吗, the user
   said 我只是询问你的意见，你要自己判断. Decide on the merits, say which way and why, including "keep it", and
   act on that judgement.
+
+---
+
+## 8. Corrections from the MFM round (Advanced Engineering Informatics, October 2026)
+
+A major revision: the decision letter numbered the reviewers #2 and #3, who raised nine and five comments, and the
+letter ran to 77 pages with reproduced tables and figures. The manuscript-side items (outsider recomputation, the
+description following the code, copied baseline values, subfigures, the R1 package and the revision cover letter) are
+in the `academic-paper-writing` skill under the same round. Each item below is a correction the user gave or a
+decision they made.
+
+### Never admit a missing experiment
+
+- **The user's rule is absolute: 不要说自己没做实验之类的.** It covers the reply, the blue text and the Conclusion.
+- **Answer from the evidence that exists.** "Use more random seeds and other training proportions" was answered with
+  the five-seed table and the agreement between the separate sets of runs.
+- **State the protocol positively and move the extension into future work.** The proportions and the transfer across
+  regions were named as future work, without a sentence saying they had not been run.
+- **The same applies to a comparison with newer networks.** The networks were added to the Related Work and the
+  comparison table, and the experimental comparison was named as future work.
+
+### Claims about what the experiments cover
+
+- **Name exactly the design choices an experiment tests.** "Each of these choices is examined experimentally" stood over
+  three choices of which two were tested. It became "Two of these choices are examined experimentally, the position of
+  the auxiliary token and the size of the encoder"; the third is presented as following from a proposition.
+- **When the reply concedes that a description was wrong, the provenance must be checkable.** "The implementation used
+  for all reported results" went into R3.1 only after the code's git history and a parameter reconstruction supported
+  it, and the user was asked to confirm it.
+- **A concession about a description goes with "all reported results are unchanged" only when that is literally
+  true.** A corrected description qualifies; a corrected number does not.
+
+### Showing distinctiveness (the 花里胡哨 request)
+
+- **Answer "the novelty is limited / just Mamba plus concatenation" with evidence, not with a defence.**
+  - Lay out the comparison table row by row against the closest recent networks.
+  - Point to the propositions that tie the design to the problem.
+  - Point to the controlled experiment that changes only the design choice under question (three token positions,
+    same block, same parameter count, five seeds).
+- **When a reviewer asks for a comparison that a table already answers, put the table in the reply.** The user asked
+  for the earlier comparison tables to be reproduced in the body of the reply (R3.3).
+
+### Letter mechanics that held up
+
+- **Citations in the letter are boxed numbers that match the manuscript's bibliography.**
+  - Write them as `\papercite{N}`, defined like `\reftag` with a green box.
+  - Read N from the `\bibcite` order in the manuscript's `.aux`.
+  - Re-map every one whenever a citation is added to or removed from the manuscript, because one insertion shifts
+    every later number.
+- **Reproduced tables are numbered like the figures.** Set `\setcounter{table}{N-1}` before a `[H]` table so that its
+  caption prints the manuscript number. This superseded the older unnumbered-title convention of §3, and the hardcoded
+  `\reftag{N}` in the prose must agree with it.
+- **Check the two blue sets after every edit.** A script extracts the blue spans of both files and reports the letter
+  spans that are missing from the manuscript, a count that must stay 0. Manuscript-only blue (sweep fixes the reviewers
+  did not raise) is allowed.
+- **No "Additional revisions" section.** A section listing unrequested fixes was judged unnecessary and removed. One
+  sentence in the reviewer-level overview carries it: "We have also refined the wording and corrected minor
+  presentation inconsistencies throughout the manuscript." The earlier form of this sentence said "checked the
+  references and cross-references", which the user later banned; see §9.
+- **Long and detailed is the requested register for this user's reply bodies,** but every sentence must survive the
+  same audit as the manuscript, for overclaim, literal truth, and refutability from the paper's own tables.
+
+### Audits pasted from other tools
+
+- **The user pasted four rounds of external checks with 作为参考能改的就改，不用必须.** Treat each finding as a hypothesis.
+  Check it against the paper, fix the true ones in the manuscript and the letter together, and report the rest with the
+  reason.
+- **Every round found something real.** Among the findings were stale counts, an unexplained 320-parameter gap, a
+  proposition that ignored the causal convolution, an algorithm missing BN and ReLU, and an overclaiming sentence in
+  R3.2.
+- **Run the outsider audit yourself before the user has to.** It is described in the manuscript skill.
+
+---
+
+## 9. Corrections from an energy-constrained RL revision round (Advanced Engineering Informatics, November 2026)
+
+A major revision of a constrained reinforcement-learning controller paper, with two reviewers and a letter of about 80
+pages. The manuscript-side items are in the `academic-paper-writing` skill under the same round.
+
+### Check the references, never say so
+
+- **The user's rule covers every document.** The user's words were 这种在cover letter里不要写, then 删掉，任何地方都不写, then
+  你要检查但是不能在论文或者cover letter或者回复信里写出来. It applies to the cover letter, the editor reply, the
+  reviewer overviews, the reply bodies and the manuscript.
+- **The check itself is still required.** Run the full reference verification of the manuscript skill (records,
+  fields, citing sentences) every round. Only the announcement is banned.
+- **Banned forms seen so far:**
+  - "We have also checked every reference against its published record"
+  - "we checked every reference against its published record and against the statement it supports"
+  - "checked the references and cross-references"
+- **Report the concrete changes, not the check.** "We refined the passages in which a citation was attached to a broader
+  statement than the cited work makes", followed by the list of changed citations, is acceptable. A sentence saying that
+  a check took place is not.
+- **Grep the whole package before every build** for `checked|verified|published record|cross-reference`, covering the
+  letter, the cover letter and the manuscript.
+
+### Every new experiment is asked for by a research question
+
+- **An experiment inside an RQ subsection must be one that the RQ asks for.** Two new perturbation tables sat in the
+  RQ5 subsection, after the sentence "These results answer RQ5", while RQ5 asked only about the baseline weight and the
+  ablation. The user caught it (table 9 10 做的事情你是不是没有包装进RQ5里).
+- **Extend an existing sensitivity RQ rather than open a robustness RQ** when the test covers only the proposed method
+  and its cells are mixed, for instance an error that falls in one scenario and rises sharply in another, or one
+  collision under noise. A dedicated "robustness" RQ turns the test into a claim and invites "robust compared with
+  what?". The question "How sensitive are its tracking and energy to X and to Y?" asks for a description, which the
+  data can always give.
+- **Answer it with a statement that holds in every cell.** One such answer was "the change in the tracking error
+  depends on the trajectory and is largest on scenario C", checked against both perturbation levels in both tables.
+- **The "These results answer RQk" sentence follows the last evidence for RQk.** When it moves, update every letter
+  quote that contains it:
+  - remove it from the quotes of the paragraph it left;
+  - add it to the quotes of the paragraph it joined;
+  - in replies that had quoted it at its old place, quote it separately after `$\ldots$`.
+- **Then update the lead-ins and the prose.** Lead-ins such as "…which close with the answer to RQ5…" must still list
+  the quoted passages in manuscript order. The reply to the reviewer who asked for the test says that the test now
+  belongs to RQ5.
+
+### Check the hardcoded numbers in the reply prose too
+
+- **The blue-set check resolves references only inside quotes.** Black prose such as `Table~\reftag{9}` is not covered
+  by it.
+- **Audit the prose with a script:**
+  - read the label numbers from `main.aux`;
+  - confirm that every `\reftag` after Section, Table, Figure, Eq. or Proposition exists;
+  - flag every table or figure reference whose ±200-character context has none of that float's keywords, for example
+    "current" for the disturbance table and "noise" for the noise table.
+  - Lists in lead-ins are the expected false positives.

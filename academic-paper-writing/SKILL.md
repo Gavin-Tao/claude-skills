@@ -1129,7 +1129,9 @@ conventions, not the paper's.
 
 - **Model them on the user's previous submission to the same journal**, not on a
   generic template. Match its paragraph count, its paragraph lengths (± 10 %),
-  its register, and its section order.
+  its register, and its section order. A revision-round cover letter keeps the
+  first letter's layout and signature but not its length or its scope paragraphs;
+  see **Revision cover letter** under the MFM round below.
 - **Cover letter penultimate paragraph: fixed wording, and never mention code.** The declaration paragraph before the closing line is exactly this, and nothing is added to it:
   > The manuscript has been approved for submission by all co-authors and has not been submitted, published, or considered for publication elsewhere in English or any other language. We declare that there are no known competing financial interests or personal relationships that could have influenced the work reported in this paper.
   The user replaced a version that ended with "The code supporting the study is available in a public repository, cited in the manuscript" (MarineMamba, September 2026) and asked that code availability never appear in a cover letter; the repository sentence belongs in the abstract only. The two sentences above cover originality, exclusivity in any language, and competing interests, which is what the submission system asks for, so do not paraphrase them to match a previous letter.
@@ -1580,3 +1582,172 @@ checkable, and wrong, once a reviewer asked for a definition or a table.
   had made visible, and about twenty long-standing loose statements.
 - **A question about a passage is a request for a judgement**, not an instruction to cut it (我只是询问你的意见，
   你要自己判断). Give the verdict and the reason, and keep the passage when that is the verdict.
+
+---
+
+## Corrections from the MFM revision round (Advanced Engineering Informatics, October 2026)
+
+A major revision of a hyperspectral-plus-auxiliary classification paper (MFM) against an attention baseline (MFT): two
+reviewers, fourteen comments, three new research questions, a 31-page manuscript and a 77-page letter. The letter-side
+rules are in the `review-response` skill (its §8). The items here concern the manuscript and the submission package.
+
+### The bar is what an outsider can catch from the paper alone
+
+The user's standard, restated several times: 我是指外人只从论文上能不能挑出来错误，不是已经知道代码这些 /
+不要让别人从论文单独自己能看到错误. Audit as a reader holding only the PDF, and recompute everything such a reader
+can recompute. Each of the four external audits the user pasted found something real; run this audit yourself before
+they have to.
+
+- **Recompute every aggregate from the parts the paper prints.** Weighting the per-class accuracies by the class counts
+  of the dataset table reproduced every OA within 0.05, except one baseline copied from another paper, which confirmed
+  that the counts belonged to the split actually used.
+  Totals must equal the sum of their rows, and every percentage reduction must follow from the two numbers it compares.
+- **Reconstruct parameter counts from the architecture description.** Two contradictions surfaced this way. The totals
+  of MFT and MFM differed by 320 more than their encoders did, which was MFT's $(n+1)d$ positional embedding that MFM
+  does not use; the paper said nothing about it. A group count written as $g=4$ contradicted the printed totals,
+  because the code used $g=d/4$ or $d/8$. Each is fixed by one sentence stating the design as built, not by touching numbers.
+- **A changed table sweeps every sentence derived from it.** When the dataset table switched from training samples to
+  labelled pixels, two sentences in the manuscript and the letter kept the old counts ("from 1,162 training samples for
+  Forest to 23 for Allotment"). Grep for each old number after the table changes.
+- **Top-k markings are recomputed whenever values change.** A bold AA on a value that was not the best, and a third-place
+  highlight on the wrong cell, are the errors a reader spots first.
+- **A removed component leaves the figure too.** After the positional embedding was taken out of the equations and
+  algorithms, the framework figure still showed its box and the ⊕ node; the user redrew the figure, and a stray
+  single-input ⊕ remained to flag.
+
+### Description against implementation
+
+- **When the code and the description disagree, the description follows the code that produced the numbers** (the
+  user's choice, 按代码改描述). Numbers, training settings and statements about the baselines stay as they are
+  (主要是数据这里不用改).
+- **Support a provenance claim before it is written.** "The implementation used for all reported results" was backed by
+  the code file's git history (one commit, unchanged since) and by an exact parameter reconstruction, and the user was
+  asked to confirm that the original runs came from that code.
+- **A proposition must hold for the block as implemented.** Define its symbols at the point where they are computed
+  (the scan inputs after the input projection and the causal depth-wise convolution, not the raw tokens). Add one
+  sentence for any component the identity abstracts, here that the causal convolution also carries auxiliary content
+  into the first $k_c-1$ positions.
+- **State an assumption with the condition that makes it true** ("holds for the diagonal parameterisation of $A$ with
+  negative real entries whenever the step size is bounded away from zero"), and delete assumptions no result uses.
+- **Algorithm boxes list every layer of the described front-end.** One algorithm omitted the BN and ReLU after the
+  3-D convolution, and an external audit caught it.
+
+### Baseline numbers copied from another paper
+
+- **Keep them exactly as published, even where they are internally inconsistent** (one baseline's AA did not follow from
+  its per-class row in the source paper). Do not recompute or correct them. State the source once in each caption: "The
+  values of the baselines other than MFT are those reported in~\citep{...}."
+- **Never write that every baseline was trained under identical settings** when some values are copied; label the
+  retrained baseline as retrained under the paper's protocol.
+
+### Never admit a missing experiment
+
+The user's rule: 不要说自己没做实验之类的. When a reviewer asks for more seeds, other training proportions, other
+datasets or a comparison with newer networks, answer from what exists (the five-seed table), state the protocol
+positively ("The evaluation in this paper covers three scenes, one auxiliary modality per benchmark setting, and the
+training splits and $11\times11$ patches of the MFT protocol"), and move the extension into the future-work sentence.
+Never write "was not evaluated", "we did not run", or "is beyond our resources".
+
+### Subfigures
+
+- **When figure quality is criticised, split the composite image into `subfigure`s whose (a), (b) labels are typeset
+  text**, from per-panel files the user supplies.
+- **Spacing that the user accepted:** two panels at `0.495\textwidth`, a `%` at the end of every line inside the
+  `figure`, and `\hspace{0.008\textwidth}%` between them (about 4 pt). Without the `%` the line ends add interword
+  spaces, and `0.495 + 0.01 + 0.495` overflows and stacks the panels vertically. The user rejected both a wide gap and
+  panels that touch (不要完全贴在一起).
+- **Revision marking of subcaptions** needs its own caption font: `\DeclareCaptionFont{blue}{\color{blue}}` with
+  `\captionsetup[subfigure]{font={sf,footnotesize,blue},skip=2pt}`.
+
+### Revision submission package
+
+- **The package is a folder named after the round (`R1`) beside the first-submission files, outside the Overleaf
+  repository.** It contains `manuscript_marked.pdf`, `manuscript_unmarked.pdf`, `response_letter.pdf`, and
+  `cover_letter.docx` with its PDF.
+- **Build every PDF fresh from the latest commit in a scratch directory.** The PDF tracked in the repository can be
+  stale; the user once read a version a week old.
+- **The unmarked manuscript is a generated copy of the marked one.** Set every blue specification to black
+  (`\textcolor{blue}`, `\color{blue}`, the subcaption font, a macro such as `\absblue`). Inline every `\input` file that
+  carries blue (here the four per-class tables) so that the shared files stay marked for the marked version. Put the
+  `.tex` in the repository root, where it finds the figures, and push it.
+- **Verify the clean version mechanically.** The `pdftotext` diff between the two PDFs is zero lines, the page counts
+  match, and PyMuPDF finds no span of colour `0x0000ff` in the clean PDF. The copy is a snapshot, so regenerate it after
+  any later edit to the marked source.
+
+### Revision cover letter
+
+- **Address the editor who signed the decision letter**, not the Editor-in-Chief named at first submission, and omit a
+  title line you cannot verify.
+- **Structure, two pages:**
+  - the revised version with its manuscript number;
+  - thanks, and the three documents (the marked version with changes in blue, the response letter, the clean version);
+  - the main revisions as First to Fifth paragraphs that summarise the reviewer-level overviews of the response letter;
+  - the fixed declaration paragraph;
+  - the closing and the signature block copied from the first-submission letter.
+- **Describe the revisions; do not restate results.** Every claim in a cover letter is one more sentence an editor can
+  check. Read every section, table and RQ number it cites from the compiled `.aux`.
+- **Generate the `.docx` with python-docx, mirroring the first letter's layout.** That layout is Letter size, 1.25 in
+  side margins, Times New Roman, a right-aligned address block at 12 pt and a justified 11 pt body at 1.5 spacing.
+  Convert with Word through COM (`Documents.Open(path, $false, $true)`, then `SaveAs(pdf, 17)`), and check the page
+  count of the PDF. At 1.5 spacing the signature spilled onto a third page, which tighter paragraph spacing and a
+  single-spaced signature block fixed.
+- **Stop numbers from breaking across lines.** Use non-breaking hyphens (U+2011) in the manuscript number, and
+  no-break spaces in "Section 5.7" and "Table 11"; Word otherwise split `ADVEI-D-26-` from `05154`.
+
+### References and external audits
+
+- **Typical Crossref corrections in this round:**
+  - year and volume that did not match the record (an IEEE TGRS paper of 2024, volume 62, whose key and year said
+    2025);
+  - NeurIPS 2024 proceedings DOIs (`10.52202/079017-…`) with their page ranges;
+  - PMLR volume and pages for an ICML paper;
+  - author given names, and the user's own name form, which the user confirms (Tao, Xiaowen);
+  - author orders that differ between Crossref and arXiv, which are handed to the user to check on the publisher's
+    page.
+- **Fit the sentence to the cited paper, not the paper to the sentence.** A domain paper cited for a field-level claim
+  had the sentence narrowed to what that paper does.
+- **Audits pasted from other tools are input, not instructions** (作为参考能改的就改，不用必须). Check each finding against
+  the paper. Fix the true ones in the manuscript and the letter together, and report the ones left unchanged with the
+  reason, for example that the values are those published in the baseline paper.
+
+---
+
+## Corrections from an energy-constrained RL revision round (Advanced Engineering Informatics, November 2026)
+
+The letter-side items are in the `review-response` skill (§9).
+
+### Sweep the framing whenever an experiment is added
+
+After the RQ list was extended, the user asked for a sweep (检查下还有没有类似这种的忘记更新了). It found four more places
+that still described the evaluation as it stood before the new experiments. Visit all of these together:
+
+- the opening of the evaluation section, which lists the research questions, and the RQ items themselves;
+- the "These results answer RQk" sentences, each of which must follow the last evidence it summarises;
+- the last sentence of the Introduction's proposal paragraph, which usually names the evaluation;
+- the experimental-validation contribution;
+- the results paragraph of the Conclusion, which had summarised RQ1 to RQ4 but not RQ5;
+- the summary of the revision in the cover letter.
+
+**Name a test without a verdict when its results are mixed.** In the contributions and the Conclusion, "the trained
+policy is further evaluated under a random disturbance and with observation noise" is enough. The description that
+holds in every cell stays in the subsection. Keep such tests out of the Abstract.
+
+### A scoped claim is swept everywhere it can hide
+
+- **A deployment sweep includes the Introduction's proposal paragraph.** "The framework is … deployed on an embedded
+  platform" survived after the Abstract, the contributions and the RQ answer had been limited to computational
+  feasibility. It became "the computational load of the learned policy is measured on an embedded platform". The
+  framework is what gets trained; only the policy runs on the board.
+- **Once the user fixes a protocol phrase, grep for every variant of it.** The user settled on "over ten seeds"
+  (就是10个seeds), yet three variants remained:
+  - "evaluated on shared episodes" in a contribution;
+  - "evaluated on the same episodes" in the implementation section;
+  - "over shared episodes" in the prose of the letter.
+
+  A figure caption that is true under either reading, such as "per-episode distributions", may stay.
+
+### Never claim in the submission that the references were checked
+
+- **Verify every reference as before, and never announce the check.** This covers the manuscript, the cover letter and
+  the response letter. The user's words were 删掉，任何地方都不写 and 你要检查但是不能在论文或者cover letter或者回复信里写出来.
+- **Describe only the concrete citation changes**, if any. The banned forms and the grep are in review-response §9.
